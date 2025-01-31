@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Quiz for Sae 💖</title>
+    <title>Love Quiz 💖</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
             text-align: center;
             font-family: Arial, sans-serif;
             background-color: #ffe4e1;
+            overflow: hidden;
         }
         .container {
             margin-top: 50px;
+            position: relative;
         }
         button {
             font-size: 20px;
@@ -29,6 +31,7 @@
         #no {
             background-color: #d3d3d3;
             position: absolute;
+            transition: all 0.2s ease;
         }
         .hearts {
             position: fixed;
@@ -41,26 +44,49 @@
             justify-content: center;
             align-items: center;
             font-size: 50px;
+            animation: fadeOut 3s forwards;
+        }
+        .image-container {
+            margin-top: 30px;
+        }
+        .image-container img {
+            width: 300px;
+            border-radius: 10px;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Saaeee do you love me forever ? 💞</h1>
+        <h1>彩衣 do u love me forever ? 💞</h1>
         <button id="yes" onclick="loveResponse()">YES 💖</button>
         <button id="no" onclick="moveNoButton()">NO 😢</button>
+        <div class="image-container">
+            <img src="your-image-url.jpg" alt="A sweet image for 彩衣">
+        </div>
     </div>
     <script>
         function loveResponse() {
-            document.body.innerHTML += '<div class="hearts">💖😍💞😘💖😍💞😘💖😍💞😘💖😍💞😘</div>';
+            let hearts = document.createElement("div");
+            hearts.className = "hearts";
+            hearts.innerHTML = "💖😍💞😘💖😍💞😘💖😍💞😘💖😍💞😘";
+            document.body.appendChild(hearts);
+            setTimeout(() => hearts.remove(), 3000);
         }
         function moveNoButton() {
             let noButton = document.getElementById("no");
-            let x = Math.random() * (window.innerWidth - noButton.clientWidth);
-            let y = Math.random() * (window.innerHeight - noButton.clientHeight);
+            let image = document.querySelector(".image-container");
+            let maxX = window.innerWidth - noButton.clientWidth;
+            let maxY = image.offsetTop - noButton.clientHeight - 20;
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
         }
     </script>
 </body>
 </html>
+
